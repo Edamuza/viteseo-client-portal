@@ -4,8 +4,11 @@ import { hashOTP, getCodeHint } from '../lib/auth/otp'
 const prisma = new PrismaClient()
 
 async function main() {
-  const clientSlug = process.argv[2] || 'sample-client'
-  const plainCode = process.argv[3] || '[redacted]'
+  const [clientSlug, plainCode] = process.argv.slice(2)
+  if (!clientSlug || !plainCode) {
+    console.error('Usage: npx tsx scripts/create-access-code.ts <client-slug> <code>')
+    process.exit(1)
+  }
   
   // Find the client
   const client = await prisma.client.findUnique({

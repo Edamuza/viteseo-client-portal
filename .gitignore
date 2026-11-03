@@ -53,3 +53,6 @@ prisma/*.db-journal
 
 # Test automation
 test_automation.py
+
+# Editor agent logs
+.cursor/
